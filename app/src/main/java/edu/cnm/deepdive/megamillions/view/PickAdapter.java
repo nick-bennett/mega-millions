@@ -12,15 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import edu.cnm.deepdive.megamillions.R;
+import edu.cnm.deepdive.megamillions.controller.MainActivity;
+import edu.cnm.deepdive.megamillions.model.entity.PickNumber;
+import edu.cnm.deepdive.megamillions.model.pojo.PickAndNumbers;
 import java.util.List;
 
 public class PickAdapter extends RecyclerView.Adapter<PickAdapter.Holder> {
 
   private Context context;
-  private List<int[]> picks;
+  private List<PickAndNumbers> picks;
 
-  // TODO Modify to take List<PickWithNumbers>.
-  public PickAdapter(Context context, List<int[]> picks) {
+  public PickAdapter(Context context, List<PickAndNumbers> picks) {
     this.context = context;
     this.picks = picks;
   }
@@ -54,6 +56,7 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.Holder> {
     private static final String ID_RES_TYPE = "id";
     private static final String NUM_ID_FORMAT = "num_%d";
 
+    private PickAndNumbers pick;
     private TextView[] numbers;
 
     public Holder(@NonNull View view) {
@@ -69,25 +72,23 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.Holder> {
     }
 
     private void bind() {
-      // TODO Use PickWithNumbers instance.
-      int[] numbers = picks.get(getAdapterPosition());
-      for (int i = 0; i < numbers.length; i++) {
-        this.numbers[i].setText(context.getString(R.string.pick_number_format, numbers[i]));
+      pick = picks.get(getAdapterPosition());
+      List<PickNumber> numbers = pick.getNumbers();
+      int index = 0;
+      for (PickNumber pickNumber : numbers) {
+        this.numbers[index++]
+            .setText(context.getString(R.string.pick_number_format, pickNumber.getValue()));
       }
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
       menu.add(R.string.delete_pick).setOnMenuItemClickListener((item) -> {
-        picks.remove(getAdapterPosition());
-        notifyItemRemoved(getAdapterPosition());
-        notifyItemRangeChanged(getAdapterPosition(), getItemCount() - getAdapterPosition());
+        ((MainActivity) context).deletePick(getAdapterPosition(), pick.getPick());
         return true;
       });
     }
 
   }
-
-  // TODO Create DeleteTask that takes a PickWithNumbers instance.
 
 }

@@ -26,6 +26,7 @@ public interface PickDao {
   @Delete
   int delete(Pick pick);
 
-  // TODO Declare @Query method to delete all picks.
+  @Query("DELETE FROM Pick")
+  int nuke();
 
 }
