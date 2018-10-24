@@ -12,11 +12,13 @@ public class PickApplication extends Application {
   public void onCreate() {
     super.onCreate();
     Stetho.initializeWithDefaults(this);
+    // TODO Remove database stuff from here; not needed anymore.
     database = PickDatabase.getInstance(this);
   }
 
   @Override
   public void onTerminate() {
+    // TODO Remove database stuff (and this method) from here; not needed anymore.
     PickDatabase.forgetInstance();
     super.onTerminate();
   }
