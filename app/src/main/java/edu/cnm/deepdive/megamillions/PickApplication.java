@@ -6,6 +6,7 @@ import edu.cnm.deepdive.megamillions.model.db.PickDatabase;
 
 public class PickApplication extends Application {
 
+  // TODO Remove
   private PickDatabase database;
 
   @Override
