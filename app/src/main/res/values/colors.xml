@@ -4,5 +4,5 @@
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
   <color name="pickBackground">#00FFFFFF</color>
-  <color name="pickBackgroundAlternate">#08000000</color>
+  <color name="pickBackgroundAlternate">#10000000</color>
 </resources>

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     boolean handled = true;
     switch (item.getItemId()) {
       case R.id.action_clear:
+        // TODO Modify to use delete all method (to be added)
         picks.clear();
         adapter.notifyDataSetChanged();
         break;

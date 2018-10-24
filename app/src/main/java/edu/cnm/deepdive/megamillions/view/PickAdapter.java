@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.megamillions.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -49,15 +50,19 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.Holder> {
       implements View.OnCreateContextMenuListener {
 
     private static final int PICK_LENGTH = 6;
+    private static final String ID_RES_TYPE = "id";
+    private static final String NUM_ID_FORMAT = "num_%d";
 
     private TextView[] numbers;
 
     public Holder(@NonNull View view) {
       super(view);
+      Resources res = context.getResources();
+      String pkg = context.getPackageName();
       view.setOnCreateContextMenuListener(this);
       numbers = new TextView[PICK_LENGTH];
       for (int i = 0; i < PICK_LENGTH; i++) {
-        int id = context.getResources().getIdentifier("num_" + i, "id", context.getPackageName());
+        int id = res.getIdentifier(String.format(NUM_ID_FORMAT, i), ID_RES_TYPE, pkg);
         numbers[i] = view.findViewById(id);
       }
     }
@@ -66,7 +71,7 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.Holder> {
       // TODO Use PickWithNumbers instance.
       int[] numbers = picks.get(getAdapterPosition());
       for (int i = 0; i < numbers.length; i++) {
-        this.numbers[i].setText(Integer.toString(numbers[i]));
+        this.numbers[i].setText(context.getString(R.string.pick_number_format, numbers[i]));
       }
     }
 
